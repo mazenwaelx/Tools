@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @Stateless
 @Entity
 public class Admin {
-	
+	//remove it later
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int AdminId;
