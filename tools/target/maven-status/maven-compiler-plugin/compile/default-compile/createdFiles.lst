@@ -1,0 +1,11 @@
+com\tools\resources\UserResource.class
+com\tools\services\UserService.class
+com\tools\resources\FriendResource.class
+com\tools\repositories\FriendRequestRepository.class
+com\tools\services\FriendService.class
+com\tools\dtos\FriendRequestDTO.class
+com\tools\dtos\UserDTO.class
+com\tools\repositories\UserRepository.class
+com\tools\RestApplication.class
+com\tools\entities\User.class
+com\tools\entities\FriendRequest.class
