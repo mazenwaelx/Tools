@@ -20,6 +20,8 @@ public class PostService {
     private UserRepository userRepo;
     @Inject
     private FriendRequestRepository friendRepo;
+    @Inject
+    private CommentRepository commentRepo;
 
     public void createPost(Long userId, String content, String imageUrl) throws Exception {
         User user = userRepo.findById(userId);
@@ -61,4 +63,25 @@ public class PostService {
         post.setLikes(post.getLikes() + 1);
         postRepo.update(post);
     }
+
+    public void addComment(Long postId, Long userId, String content) throws Exception {
+        Post post = postRepo.findById(postId);
+        User user = userRepo.findById(userId);
+
+        if (post == null)
+            throw new Exception("Post not found");
+        if (user == null)
+            throw new Exception("User not found");
+
+        Comment comment = new Comment();
+        comment.setPost(post);
+        comment.setUser(user);
+        comment.setContent(content);
+        commentRepo.save(comment);
+    }
+
+    public List<Comment> getComments(Long postId) {
+        return commentRepo.findByPostId(postId);
+    }
+
 }
