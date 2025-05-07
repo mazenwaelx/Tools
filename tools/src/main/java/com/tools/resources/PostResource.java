@@ -1,5 +1,6 @@
 package com.tools.resources;
 
+import com.tools.dtos.CommentDTO;
 import com.tools.dtos.PostDTO;
 import com.tools.entities.Post;
 import com.tools.services.PostService;
@@ -71,4 +72,30 @@ public class PostResource {
                     .entity("{\"error\":\"" + e.getMessage() + "\"}").build();
         }
     }
+
+    @POST
+    @Path("/comment")
+    public Response addComment(CommentDTO dto) {
+        try {
+            postService.addComment(dto.getPostId(), dto.getUserId(), dto.getContent());
+            return Response.ok("{\"message\":\"Comment added.\"}").build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("{\"error\":\"" + e.getMessage() + "\"}")
+                    .build();
+        }
+    }
+
+    @GET
+    @Path("/{postId}/comments")
+    public Response getComments(@PathParam("postId") Long postId) {
+        try {
+            return Response.ok(postService.getComments(postId)).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity("{\"error\":\"" + e.getMessage() + "\"}")
+                    .build();
+        }
+    }
+
 }
